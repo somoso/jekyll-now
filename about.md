@@ -4,12 +4,26 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+I am a software engineer that has been involved in projects using the following technologies:
+
+* Java (advanced)
+    * Spring
+    * Hibernate
+    * QueryDSL
+    * Wicket
+    * Jackson
+* Kotlin (beginner/intermediate)
+* Android (advanced)
+* Javascript (intermediate/advanced)
+    * React
+    * React Native
+
+I've also been involved in mentoring junior developers and lending my support to other projects.
 
 ### More Information
 
-A place to include any other types of information that you'd like to include about yourself.
+In my spare time I spend time with the family. Other than that I spend time trying to learn to play the guitar, Netflix, and video games.
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+I'm not really too keen on leaving personal contact information out on the internet. If you wish to contact me in some way, you can leave an [issue](https://github.com/somoso/somoso.github.io/issues) on this blog.
