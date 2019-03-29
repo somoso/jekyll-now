@@ -1,5 +1,7 @@
 
-.highlight {
+@import url(https://cdn.rawgit.com/tonsky/FiraCode/1.204/distr/fira_code.css);
+
+div.highlight {
   background-color: #efefef;
   padding: 7px 7px 7px 10px;
   border: 1px solid #ddd;
@@ -11,7 +13,8 @@
 }
 
 code {
-  font-family:'Bitstream Vera Sans Mono','Courier', monospace;
+  font-family:'Fira Code', monospace;
+  font-weight: 500;
 }
 
 .highlight .c { color: #586E75 } /* Comment */
