@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Debugging Android
-draft: true
 ---
 
 The steps I took to fix a broken build when Android failed to build and nothing had changed with the source code.
