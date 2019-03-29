@@ -6,17 +6,18 @@ permalink: /about/
 
 I am a software engineer that has been involved in projects using the following technologies:
 
-* Java (advanced)
+* Java
     * Spring
     * Hibernate
     * QueryDSL
     * Wicket
     * Jackson
-* Kotlin (beginner/intermediate)
-* Android (advanced)
-* Javascript (intermediate/advanced)
+* Kotlin
+* Android
+* Javascript
     * React
     * React Native
+* Git
 
 I've also been involved in mentoring junior developers and lending my support to other projects.
 
