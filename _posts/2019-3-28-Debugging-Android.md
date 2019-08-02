@@ -3,11 +3,11 @@ layout: post
 title: Debugging Android
 ---
 
-The steps I took to fix a broken build when Android failed to build and nothing had changed with the source code.
+The steps I took to fix a broken build when Android failed to build, and nothing had changed with the source code.
 
 Recently one of our Android projects failed to build a release APK using the command `./gradlew assembleRelease`. It's profoundly odd since there were no changes to the Android source code between the time this command last worked and this recent compilation. 
 
-To be clear, this was a React Native project and the only changes were made were in the Javascript files - this shouldn't have KO'd the Android build process at all. And when I say KO'd, I mean I got this error:
+To be clear, this was a React Native project, and the only changes made were in the Javascript files - this shouldn't have KO'd the Android build process at all. And when I say KO'd, I mean I got this error:
 
 ```
 Dex: Error converting bytecode to dex:
@@ -65,7 +65,7 @@ BUILD FAILED
 
 OK, *something* went catastrophically wrong here. It's tempting to search for the answer on something like StackOverflow and try to copy and paste the answer in a desperate attempt to get *something* to work. 
 
-The problem with this approach, however, is the fact that Gradle errors are build errors that came from your specific project, so while it might seem sensible to just Google the answer, the problem is very specific to the individual project, and what may work for one person is unlikely to going to work for another (unless they have a similar setup). 
+The problem with this approach, however, is the fact that Gradle errors are build errors that came from your specific project, so while it might seem sensible just to Google the answer, the problem is particular to the individual project, and what may work for one person is unlikely to going to work for another (unless they have a similar setup). 
 
 One could keep Googling until they find someone else with a similar setup, but I'll show how I solved it for my project, which has numerous dependencies being a React Native project and some custom written dependencies due to the nature of the project. With this approach, you can at least go on the path to solving your Gradle based issues.
 
@@ -137,11 +137,11 @@ So from the above stack trace, it looks like we have some culprits:
 * `google-play-gms` (16.4.0)
 * `react-native-fcm` (from `package.json`)
 
-I look around, starting with the one that seems closest to the crash (`auto-value-annotations`) and it seems as if there is an [issue](https://github.com/google/auto/issues/655) wherein build in 1.6 that pulls in Java 8 bytecode, breaking compatibility.
+I look around, starting with the one that seems closest to the crash (`auto-value-annotations`) and there appears to be an [issue](https://github.com/google/auto/issues/655) wherein build in 1.6 that pulls in Java 8 bytecode, breaking compatibility.
 
-If we follow the GitHub ticket, we can see the issue is referenced in [another ticket](https://github.com/google/auto/pull/656), and the [pull request](https://github.com/google/auto/commit/9cc04ecb39166207a2835174b85ee209cc08aad0) is merged (referenced as `9cc04ec` - the first 7 characters of the git commit ID). We can see in [this release](https://github.com/google/auto/releases/tag/auto-value-1.6.3) that the issue is resolved (2nd from the bottom). This is the version of AutoValue we want our code to pull in.
+If we follow the GitHub ticket, we can see the issue referenced in [another ticket](https://github.com/google/auto/pull/656), and the [pull request](https://github.com/google/auto/commit/9cc04ecb39166207a2835174b85ee209cc08aad0) is merged (referenced as `9cc04ec` - the first seven characters of the git commit ID). We can see in [this release](https://github.com/google/auto/releases/tag/auto-value-1.6.3) that the issue is resolved (2nd from the bottom). The git commit linked is the version of AutoValue we want our code to pull in.
 
-But how do we tell Gradle that we want this version whenever dependencies ask for `auto-value-annotations`? Gradle has a feature that allows it to enforce a resolution strategy. After a bit of googling of what that was (it's very common for Google Play APIs as libraries often have a higher/lower version of Google Play APIs than you are using) I came up with the chunk of Groovy code to put in my Gradle file (just above the `dependencies` entry - it should be on the same indentation level as `dependencies`):
+But how do we tell Gradle that we want this version whenever dependencies ask for `auto-value-annotations`? Gradle has a feature that allows it to enforce a resolution strategy. After a bit of googling of what that was (it is ubiquitous for Google Play APIs as libraries often have a higher/lower version of Google Play APIs than you are using) I came up with the chunk of Groovy code to put in my Gradle file (just above the `dependencies` entry - it should be on the same indentation level as `dependencies`):
 
 ~~~gradle
 configurations.all {
